@@ -6,7 +6,12 @@
      192.168.18.191 rke2-slaves1.local
      192.168.18.189 rke2-slaves2.local
 ## Features
+    # Master
     curl -sfL https://get.rke2.io | sh -
+
+    # Slaves
+    curl -sfL https://get.rke2.io | INSTALL_RKE2_TYPE="agent" sh -
+
     systemctl enable rke2-server.service
     systemctl start rke2-server.service
     journalctl -u rke2-server -f
