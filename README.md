@@ -93,13 +93,13 @@ touch /etc/rancher/rke/config.yaml
 There are many options that can be configured for the server , you can refer to the rke2 documentation for the server config options https://docs.rke2.io/reference/server_config
 
 The most important options that we are going to use are :
-- server : This is the ip of the server that all the other nodes will need to join the cluster , it can be the ip of any master node we created or a load balancer that sits in front of the master nodes 
+- server : Đây là ip của máy chủ mà tất cả các nút khác sẽ cần để tham gia cụm, nó có thể là ip của bất kỳ nút chính nào mà chúng tôi đã tạo hoặc một bộ cân bằng tải nằm phía trước các nút chính
 
-- token : This is the token that the cluster nodes will use to join the cluster , generated from initializing the 1st master node or we can provide our token 
+- token : Đây là mã thông báo mà các nút cụm sẽ sử dụng để tham gia cụm, được tạo từ việc khởi tạo nút chính thứ 1 hoặc chúng tôi có thể cung cấp mã thông báo của mình
 
 - tls-san:
     - "xxx.xxx.xxx.xxx"
-\n This option is used to include any ips/domain names in the server certificates of the api-servers of the master nodes , needed if we are going to use a load balancer to access the cluster's multiple api-servers (this loadbalancer ip is used in the kubeconfig file that kubectl uses to communicate with the cluster )
+\n Tùy chọn này được sử dụng để bao gồm mọi ips/tên miền trong chứng chỉ máy chủ của máy chủ api của các nút chính, cần thiết nếu chúng tôi định sử dụng bộ cân bằng tải để truy cập vào cụm nhiều máy chủ api (ip cân bằng tải này được sử dụng trong tệp kubeconfig mà kubectl sử dụng để giao tiếp với cụm)
 
 
 
