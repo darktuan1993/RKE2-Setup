@@ -1,0 +1,34 @@
+profile: cis # for 1.28 and older cis-1.23
+selinux: false
+secrets-encryption: true
+token: 3QvY7ktV3M7k5k5mw9kcrsf3DI8bzXxxa00OJlxDfAbamempM6xsZF7yoOij6KW2
+tls-san:
+- rancher-cluster.bravo.test
+write-kubeconfig-mode: 0600
+#use-service-account-credentials: true
+#pod-security-admission-config-file: /etc/rancher/rke2/rancher-psact.yaml
+kube-controller-manager-arg:
+- bind-address=127.0.0.1
+- use-service-account-credentials=true
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+kube-scheduler-arg:
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+kube-apiserver-arg:
+- tls-min-version=VersionTLS12
+- tls-cipher-suites=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+- authorization-mode=RBAC,Node
+- anonymous-auth=false
+#- audit-policy-file=/etc/rancher/rke2/audit-policy.yaml
+- audit-log-mode=blocking-strict
+- audit-log-maxage=30
+#- audit-log-path=/var/lib/rancher/rke2/server/logs/audit.log
+kubelet-arg:
+- kube-reserved=cpu=400m,memory=1Gi
+- system-reserved=cpu=400m,memory=1Gi
+- protect-kernel-defaults=true
+- read-only-port=0
+- authorization-mode=Webhook
+- streaming-connection-idle-timeout=5m
+- max-pods=400

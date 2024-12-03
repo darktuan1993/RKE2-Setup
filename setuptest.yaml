@@ -1,0 +1,22 @@
+
+########### GLOBAL CONFIG ######
+write-kubeconfig-mode: 0600
+tls-san:
+  - cn-rke2-master.bravo.com.vn
+  - 192.168.140.207
+disable-kube-proxy: true
+disable:
+  - rke2-ingress-nginx
+disable-cloud-controller: yes
+#### ETCD ####
+etcd-snapshot-name: etcd-snapshot
+etcd-snapshot-schedule-cron: "0 12 * * *"
+etcd-snapshot-retention: 5
+etcd-snapshot-dir: /var/backups/etcd-snapshot
+etcd-snapshot-compress: true
+
+
+#### KUBELET ####
+kubelet-arg:
+- kube-reserved=cpu=400m,memory=2Gi
+- system-reserved=cpu=400m,memory=2Gi
