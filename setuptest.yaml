@@ -1,22 +1,55 @@
-
-########### GLOBAL CONFIG ######
-write-kubeconfig-mode: 0600
+#-------------- GLOBAL CONFIG --------------
+write-kubeconfig-mode: 0600   # Quyền cho file trong hệ thống
+cni: canal
 tls-san:
   - cn-rke2-master.bravo.com.vn
   - 192.168.140.207
-disable-kube-proxy: true
-disable:
+disable-kube-proxy: true      # disable kube-proxy
+disable:                      # disable tính năng
   - rke2-ingress-nginx
-disable-cloud-controller: yes
-#### ETCD ####
-etcd-snapshot-name: etcd-snapshot
-etcd-snapshot-schedule-cron: "0 12 * * *"
-etcd-snapshot-retention: 5
-etcd-snapshot-dir: /var/backups/etcd-snapshot
-etcd-snapshot-compress: true
+disable-cloud-controller: yes # disable cloud controller
+
+#-------------- ETCD --------------
+etcd-snapshot-name: etcd-snapshot                 # Tên snapshot DB
+etcd-snapshot-schedule-cron: "0 12 * * *"         # Lịch snapshot DB
+etcd-snapshot-retention: 5                        # Thời gian lưu trữ snapshot
+etcd-snapshot-dir: /var/backups/etcd-snapshot     # Thư mục backup
+etcd-snapshot-compress: true                      # Nén file backup (true/false)
+#etcd-arg:
 
 
-#### KUBELET ####
-kubelet-arg:
-- kube-reserved=cpu=400m,memory=2Gi
-- system-reserved=cpu=400m,memory=2Gi
+#-------------- KUBELET --------------
+## flag
+kubelet-arg:                                      # Arg trong kubelet
+  - kube-reserved=cpu=400m,memory=2Gi
+  - system-reserved=cpu=400m,memory=2Gi
+  - max-pods=400
+
+#-------------- API-SERVER --------------
+## flag 
+kube-apiserver-arg:                               # Arg trong kube-apiserver
+  - authorization-mode=RBAC,Node
+  - anonymous-auth=false
+
+#-------------- CONTROL-PLANE --------------
+## Resource
+control-plane-resource-requests:                  # resource request cho cụm
+  - kube-apiserver-cpu=800m
+  - kube-apiserver-memory=1512M
+  - kube-scheduler-cpu=550m
+  - kube-scheduler-memory=512M
+  - etcd-cpu=1500m
+#control-plane-resource-limits:                   # resource limit cho cụm
+## Resource  
+
+#-------------- KUBE-PROXY --------------
+kube-proxy-arg:                                   # Arg trong kube-proxy
+
+#-------------- KUBE-SCHEDULES --------------
+#kube-scheduler-arg:
+kube-scheduler-extra-env: "TZ=Asia/Ho_Chi_Minh"    # env trong kube-scheduler bổ sung
+
+
+
+
+
